@@ -1,5 +1,7 @@
 package taskman.handyapps.com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,18 @@ import javax.persistence.Id;
  * Created by Kesh on 3/2/2016.
  */
 @Entity(name="severity_level")
-public class SeverityLevel {
+public class SeverityLevel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(nullable = false)
     private String type;
+
+    public SeverityLevel() {}
+
+    public SeverityLevel(String type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;

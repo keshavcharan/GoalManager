@@ -3,6 +3,8 @@ package taskman.handyapps.com.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import javax.persistence.ManyToOne;
  * Created by Kesh on 3/2/2016.
  */
 @Entity(name="goal")
-public class Goal
+public class Goal implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +29,9 @@ public class Goal
     @ManyToOne
     @JoinColumn(name = "notification_type" )
     private NotificationType notificationType;
+
+    public Goal(){
+    }
 
     public Integer getId() {
         return id;

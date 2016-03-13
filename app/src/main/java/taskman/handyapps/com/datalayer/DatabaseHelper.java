@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -23,6 +24,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DB_NAME = "goalman.db";
     private static final int VERSION = 3;
 
+    SQLiteDatabase db;
     private static Dao<Goal, Integer> goalDAO;
     private static Dao<NotificationType, Integer> notificationTypeDAO;
     private static Dao<SeverityLevel, Integer> severityLevelDao;
@@ -31,6 +33,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public DatabaseHelper(Context context)
     {
         super(context, DB_NAME, null, VERSION);
+        db=super.getWritableDatabase();
     }
 
     @Override
@@ -40,6 +43,41 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, NotificationType.class);
             TableUtils.createTable(connectionSource, SeverityLevel.class);
             TableUtils.createTable(connectionSource, SubDetail.class);
+
+            SeverityLevel severityLevel;
+            for (SeverityLevelsEnum severityLevelsEnum : SeverityLevelsEnum.values()) {
+                    severityLevel = new SeverityLevel(severityLevelsEnum.toString());
+                    ((Dao<SeverityLevel, Integer>) getDaoClass(SeverityLevel.class)).create(severityLevel);
+            }
+
+            NotificationType notificationType;
+            for(NotificationTypesEnum notificationTypesEnum : NotificationTypesEnum.values()) {
+                QueryBuilder<SeverityLevel, Integer> severityQueryBuilder = severityLevelDao.queryBuilder();
+                switch (notificationTypesEnum){
+                    case REMINDER:
+                        severityLevel = severityQueryBuilder.where().eq("type", SeverityLevelsEnum.YELLOW.toString()).queryForFirst();
+                        notificationType = new NotificationType(severityLevel, notificationTypesEnum.getMessage());
+                        break;
+                    case DEADLINE_AHEAD:
+                        severityLevel = severityQueryBuilder.where().eq("type", SeverityLevelsEnum.ORANGE.toString()).queryForFirst();
+                        notificationType = new NotificationType(severityLevel, notificationTypesEnum.getMessage());
+                        break;
+                    case DEADLINE_MISSED:
+                        severityLevel = severityQueryBuilder.where().eq("type", SeverityLevelsEnum.LIGHT_RED.toString()).queryForFirst();
+                        notificationType = new NotificationType(severityLevel, notificationTypesEnum.getMessage());
+                        break;
+                    case DEADLINES_MISSED:
+                        severityLevel = severityQueryBuilder.where().eq("type", SeverityLevelsEnum.DARK_RED.toString()).queryForFirst();
+                        notificationType = new NotificationType(severityLevel, notificationTypesEnum.getMessage());
+                        break;
+                    default:
+                        severityLevel = severityQueryBuilder.where().eq("type", SeverityLevelsEnum.ORANGE.toString()).queryForFirst();
+                        notificationType = new NotificationType(severityLevel, notificationTypesEnum.getMessage());
+                        break;
+                }
+
+                ((Dao<NotificationType, Integer>) getDaoClass(NotificationType.class)).create(notificationType);
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToOne;
  * Created by Kesh on 3/2/2016.
  */
 @Entity(name="sub_detail")
-public class SubDetail
+public class SubDetail implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +34,9 @@ public class SubDetail
     @JoinColumn(name="goal", nullable = false)
     private Goal goal;
 
+    public SubDetail(){
+
+    }
     public int getId() {
         return id;
     }

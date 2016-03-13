@@ -1,5 +1,7 @@
 package taskman.handyapps.com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import javax.persistence.ManyToOne;
  * Created by Kesh on 3/2/2016.
  */
 @Entity(name="notification_type")
-public class NotificationType
+public class NotificationType implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +24,15 @@ public class NotificationType
     private SeverityLevel severityLevel;
     @Column
     private String message;
+
+    public NotificationType(SeverityLevel severityLevel, String message) {
+        this.severityLevel = severityLevel;
+        this.message = message;
+    }
+
+    public NotificationType(){
+
+    }
 
     public Integer getId() {
         return id;
