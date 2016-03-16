@@ -13,27 +13,16 @@ import android.widget.TextView;
  */
 public class CreateGoalFragment extends Fragment {
 
-    private Bundle bundle;
-    private boolean edit = false;
     public CreateGoalFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Bundle bundle = this.getArguments();
-        if(bundle != null)
-            edit = bundle.getBoolean("editFragment");
-
-        View taskView = inflater.inflate(R.layout.taskview_fragment, container, false);
-        TextView tv = (TextView) taskView.findViewById(R.id.textView);
-        if(edit) {
-            tv.setText("TEST MESSAGE Edit");
-            tv.setBackgroundColor(Color.DKGRAY);
-        } else  {
-            tv.setText("TEST MESSAGE Create");
-            tv.setBackgroundColor(Color.YELLOW);
-        }
+        View taskView = inflater.inflate(R.layout.create_goal, container, false);
+        TextView tv = (TextView) taskView.findViewById(R.id.goal_example);
+        tv.setText("TEST MESSAGE Create");
+        tv.setBackgroundColor(Color.CYAN);
         return taskView;
     }
 }

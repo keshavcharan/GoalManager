@@ -20,13 +20,11 @@ public class TasksPagerAdapter extends FragmentStatePagerAdapter
         switch(position)
         {
             case 0:
-                TaskViewFragment taskViewFragment = new TaskViewFragment();
-                return taskViewFragment;
+                return new GoalDetailsFragment();
             case 1:
-                GoalDetailsFragment goalDetailsFragment = new GoalDetailsFragment();
-                return goalDetailsFragment;
+                return new GoalCalendarFragment();
             default:
-                return null;
+                return new GoalDetailsFragment();
         }
     }
 

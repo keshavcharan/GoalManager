@@ -17,9 +17,9 @@ public class GoalManagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View goals = inflater.inflate(R.layout.top_goals_viewpager, container, false);
-
+        System.out.println("yyyyyyyyyyyyyyyyyyyy");
         ViewPager viewPager = (ViewPager) goals.findViewById(R.id.tabspager);
-        tasksPagerAdapter = new TasksPagerAdapter(getFragmentManager());
+        tasksPagerAdapter = new TasksPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(tasksPagerAdapter);
 
         return goals;

@@ -35,6 +35,7 @@ public class GoalDetailsFragment extends Fragment {
         GoalsRowAdapter rowAdapter = new GoalsRowAdapter(detailsList, this.getActivity(), getResources());
 /*        TextView tv = (TextView) taskDetails.findViewById(R.id.textDetailsView);
         tv.setText("TEST MESSAGE 2");*/
+        fileList.setAdapter(rowAdapter);
         return taskDetails;
     }
 

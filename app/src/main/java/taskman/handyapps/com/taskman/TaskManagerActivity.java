@@ -7,11 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TableLayout;
 
-public class TaskManagerActivity extends AppCompatActivity
+public class TaskManagerActivity extends FragmentActivity
 {
-    TasksPagerAdapter tasksPagerAdapter;
+    BottomTabsPagerAdapter bottomTabsPagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,12 +20,13 @@ public class TaskManagerActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_task_manager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-        ViewPager viewPager = (ViewPager) findViewById(R.id.tabspager);
-        tasksPagerAdapter = new TasksPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tasksPagerAdapter);
+
+        BottomViewPager bottomViewPager = (BottomViewPager) findViewById(R.id.bottom_tabs_pager);
+        bottomTabsPagerAdapter = new BottomTabsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
+        bottomViewPager.setAdapter(bottomTabsPagerAdapter);
+
+        tabLayout.setupWithViewPager(bottomViewPager);
 
     }
+
 }
