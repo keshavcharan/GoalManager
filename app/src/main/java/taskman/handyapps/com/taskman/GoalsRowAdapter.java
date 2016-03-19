@@ -13,6 +13,7 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import taskman.handyapps.com.model.Goal;
@@ -77,15 +78,11 @@ public class GoalsRowAdapter extends BaseAdapter implements View.OnClickListener
             holder = (FileViewHolder) v.getTag();
         }
 
-
-        if(goals.size() <= 0){
-            holder.taskTitle.setText("No Files");
-        }else{
             goal = (Goal) goals.get(position);
 
             holder.taskStatus.setText("false");
             holder.taskTitle.setText(goal.getAbout());
-            holder.taskDate.setText(goal.getEndDate());
+            holder.taskDate.setText(new Date(goal.getEndDate()).toString());
 
             //v.setOnClickListener(new OnItemClickListener(position));
 
@@ -104,7 +101,6 @@ public class GoalsRowAdapter extends BaseAdapter implements View.OnClickListener
 					*//* copy text/file *//*
                 }
             });*/
-        }
 
         return v;
     }

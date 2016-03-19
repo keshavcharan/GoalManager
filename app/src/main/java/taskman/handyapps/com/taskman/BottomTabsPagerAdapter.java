@@ -16,10 +16,16 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
     int numberOfTabs;
     Context context;
 
+    GoalManagerFragment goalManagerFragment;
+    TutorialFragment tutorialFragment;
+
     public BottomTabsPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
-        this.numberOfTabs = 3;
+        this.numberOfTabs = 2;
+
+        goalManagerFragment = new GoalManagerFragment();
+        tutorialFragment = new TutorialFragment();
     }
 
     @Override
@@ -27,11 +33,9 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
         switch(position)
         {
             case 0:
-                return new GoalManagerFragment();
+                return goalManagerFragment;
             case 1:
-                return new TutorialFragment();
-            case 2:
-                return new CreateGoalFragment();
+                return tutorialFragment;
             default:
                 return new GoalManagerFragment();
         }
@@ -53,9 +57,6 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
             case 1:
                 title = "i";
                 break;
-            case 2:
-                title = "+";
-                break;
             default:
                 title = "";
                 break;
@@ -63,7 +64,4 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
         }
         return title;
     }
-
-
-
 }

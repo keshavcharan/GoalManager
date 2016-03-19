@@ -2,6 +2,7 @@ package taskman.handyapps.com.taskman;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 /**
  * Created by Kesh on 3/13/2016.
  */
-public class CreateGoalFragment extends Fragment {
+public class CreateGoalFragment extends DialogFragment {
 
     public CreateGoalFragment() {
     }
@@ -21,8 +22,6 @@ public class CreateGoalFragment extends Fragment {
     {
         View taskView = inflater.inflate(R.layout.create_goal, container, false);
         TextView tv = (TextView) taskView.findViewById(R.id.goal_example);
-        tv.setText("TEST MESSAGE Create");
-        tv.setBackgroundColor(Color.CYAN);
         return taskView;
     }
 }

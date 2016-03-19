@@ -23,6 +23,13 @@ public class GoalDetailsFragment extends Fragment {
     DatabaseHelper dbHelper;
     ListView fileList;
     Dao<Goal, Integer> goalDao;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        System.out.println("pppppppppppppppp");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -31,6 +38,10 @@ public class GoalDetailsFragment extends Fragment {
         View taskDetails = inflater.inflate(R.layout.taskdetails_fragment, container, false);
         fileList = (ListView) taskDetails.findViewById(R.id.textDetailsListView);
         List<Goal> detailsList = new ArrayList<Goal>();
+        Goal goal = new Goal();
+        goal.setAbout("Example Goal");
+        goal.setEndDate((int)System.currentTimeMillis());
+        detailsList.add(goal);
 //        setListData();
         GoalsRowAdapter rowAdapter = new GoalsRowAdapter(detailsList, this.getActivity(), getResources());
 /*        TextView tv = (TextView) taskDetails.findViewById(R.id.textDetailsView);

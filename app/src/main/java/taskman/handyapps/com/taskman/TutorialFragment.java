@@ -16,6 +16,16 @@ public class TutorialFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        Bundle bundle = this.getArguments();
+        boolean addPopup =false;
+        if(bundle != null)
+            addPopup = bundle.getBoolean("addPopup");
+
+        if(addPopup) {
+            CreateGoalFragment createGoal = new CreateGoalFragment();
+            createGoal.show(getFragmentManager(), "fragmentDialog");
+        }
+
         View taskView = inflater.inflate(R.layout.taskview_fragment, container, false);
         TextView tv = (TextView) taskView.findViewById(R.id.textView);
         tv.setText("TEST MESSAGE Tutorial");

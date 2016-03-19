@@ -1,11 +1,15 @@
 package taskman.handyapps.com.taskman;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by Kesh on 3/14/2016.
@@ -16,13 +20,24 @@ public class GoalManagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View goals = inflater.inflate(R.layout.top_goals_viewpager, container, false);
-        System.out.println("yyyyyyyyyyyyyyyyyyyy");
-        ViewPager viewPager = (ViewPager) goals.findViewById(R.id.tabspager);
-        tasksPagerAdapter = new TasksPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(tasksPagerAdapter);
+        Bundle bundle = this.getArguments();
 
-        return goals;
+        boolean addPopup = false;
+        if(bundle != null) {
+            addPopup = bundle.getBoolean("addPopup");
+            System.out.println(bundle.getBoolean("addPopup") + "ttttttttttt");
+        }
+
+        if(addPopup) {
+            CreateGoalFragment createGoal = new CreateGoalFragment();
+            createGoal.show(getFragmentManager(), "fragmentDialog");
+        }
+            View goals = inflater.inflate(R.layout.top_goals_viewpager, container, false);
+            ViewPager viewPager = (ViewPager) goals.findViewById(R.id.tabspager);
+            tasksPagerAdapter = new TasksPagerAdapter(getChildFragmentManager());
+            viewPager.setAdapter(tasksPagerAdapter);
+            return goals;
+
     }
 
 }
