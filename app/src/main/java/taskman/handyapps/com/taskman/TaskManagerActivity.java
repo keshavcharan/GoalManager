@@ -37,10 +37,13 @@ public class TaskManagerActivity extends FragmentActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 2){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("AddFragmentPageNumber", 1);
                     CreateGoalFragment createGoal = new CreateGoalFragment();
                     createGoal.setShowsDialog(true);
+                    createGoal.setArguments(bundle);
                     createGoal.setStyle(DialogFragment.STYLE_NORMAL, 0);
-                    createGoal.show(getSupportFragmentManager(), "fragmentDialog");
+                    createGoal.show(getSupportFragmentManager(), "addFragmentDialogPage1");
                 } else {
                     bottomViewPager.setCurrentItem(tab.getPosition());
                 }

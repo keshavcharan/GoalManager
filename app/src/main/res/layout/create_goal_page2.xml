@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_popup_llayout_2"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/purple"
+        android:text="@string/priority_vals"/>
+
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp" >
+
+        <RadioButton
+            android:id="@+id/low"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="@string/low_priority"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/high"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="@string/normal_priority" />
+
+
+        <RadioButton
+            android:id="@+id/normal"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="@string/high_priority"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/pin"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="@string/pin_to_top" />
+
+    </RadioGroup>
+
+    <CalendarView
+        android:id="@+id/add_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <Button
+        android:id="@+id/pagetwocancelbutton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/cancel_button"/>
+
+</LinearLayout>

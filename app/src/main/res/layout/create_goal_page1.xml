@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_popup_linear_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/purple"
+        android:text="@string/add_title"/>
+
+    <EditText
+        android:id="@+id/titletext"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:maxLength="140"
+        android:background="@color/orange"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/purple"
+        android:text="@string/add_notes"
+        android:maxLength="400"/>
+
+    <EditText
+        android:id="@+id/notestext"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/orange"/>
+
+    <Button
+        android:id="@+id/nextbutton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/next_button"/>
+
+    <Button
+        android:id="@+id/cancelbutton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/cancel_button"/>
+
+</LinearLayout>

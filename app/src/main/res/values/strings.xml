@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TaskMan</string>
+    <string name="add_title">SET GOAL</string>
+    <string name="add_notes">ADD NOTES</string>
+    <string name="cancel_button">CANCEL</string>
+    <string name="next_button">NEXT</string>
+    <string name="priority_vals">GOAL PRIORITY</string>
+    <string name="low_priority">LOW</string>
+    <string name="high_priority">HIGH</string>
+    <string name="normal_priority">NORMAL</string>
+    <string name="pin_to_top">PIN TO TOP</string>
 </resources>
