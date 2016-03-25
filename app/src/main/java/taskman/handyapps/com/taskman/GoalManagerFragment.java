@@ -25,17 +25,18 @@ public class GoalManagerFragment extends Fragment {
         boolean addPopup = false;
         if(bundle != null) {
             addPopup = bundle.getBoolean("addPopup");
-            System.out.println(bundle.getBoolean("addPopup") + "ttttttttttt");
         }
 
         if(addPopup) {
             CreateGoalFragment createGoal = new CreateGoalFragment();
             createGoal.show(getFragmentManager(), "fragmentDialog");
         }
+
             View goals = inflater.inflate(R.layout.top_goals_viewpager, container, false);
             ViewPager viewPager = (ViewPager) goals.findViewById(R.id.tabspager);
             tasksPagerAdapter = new TasksPagerAdapter(getChildFragmentManager());
             viewPager.setAdapter(tasksPagerAdapter);
+            viewPager.setCurrentItem(1);
             return goals;
 
     }

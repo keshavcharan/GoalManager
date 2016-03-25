@@ -26,7 +26,7 @@ public class TutorialFragment extends Fragment {
             createGoal.show(getFragmentManager(), "fragmentDialog");
         }
 
-        View taskView = inflater.inflate(R.layout.taskview_fragment, container, false);
+        View taskView = inflater.inflate(R.layout.goalman_tutorial, container, false);
         TextView tv = (TextView) taskView.findViewById(R.id.textView);
         tv.setText("TEST MESSAGE Tutorial");
         tv.setBackgroundColor(Color.DKGRAY);

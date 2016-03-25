@@ -27,7 +27,6 @@ public class GoalDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("pppppppppppppppp");
     }
 
     @Override

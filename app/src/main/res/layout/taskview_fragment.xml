@@ -4,27 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/textView"
         android:background="@color/purple" />
-<!--
-android:layout_weight="0.8"
+-->
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="0.1"
+        android:layout_height="0dp"
+        >
+            <Spinner
+                android:id="@+id/goaldd"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                />
+            <Spinner
+                android:id="@+id/subtaskdd"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                />
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/goal_calendar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:orientation="horizontal">
+        android:layout_weight="0.8"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="0.1"
+        android:layout_height="0dp"
+        android:paddingTop="5dp"
+        >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.1"
             android:layout_height="match_parent"
+            android:background="#00000000"/>
+        <Spinner
+            android:id="@+id/monthlistdd"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
             />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-
+            android:layout_width="0dp"
+            android:layout_weight="0.1"
+            android:layout_height="match_parent"
+            android:background="#00000000"/>
+        <Spinner
+            android:id="@+id/yearlistdd"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.1"
+            android:layout_height="match_parent"
+            android:background="#00000000"/>
     </LinearLayout>
-    -->
+
+
 </LinearLayout>

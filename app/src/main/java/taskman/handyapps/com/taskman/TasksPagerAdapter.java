@@ -12,7 +12,7 @@ public class TasksPagerAdapter extends FragmentStatePagerAdapter
     int numberOfTabs;
     public TasksPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.numberOfTabs = 2;
+        this.numberOfTabs = 3;
     }
 
     @Override
@@ -20,9 +20,11 @@ public class TasksPagerAdapter extends FragmentStatePagerAdapter
         switch(position)
         {
             case 0:
-                return new GoalDetailsFragment();
-            case 1:
                 return new GoalCalendarFragment();
+            case 1:
+                return new GoalDetailsFragment();
+            case 2:
+                return new NotificationFragment();
             default:
                 return new GoalDetailsFragment();
         }
@@ -33,9 +35,11 @@ public class TasksPagerAdapter extends FragmentStatePagerAdapter
         switch(position)
         {
             case 0:
-                return "Goals";
-            case 1:
                 return "Task Calendar";
+            case 1:
+                return "Goals";
+            case 2:
+                return "Notifications";
             default:
                 return null;
         }
