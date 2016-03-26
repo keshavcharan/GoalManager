@@ -16,7 +16,7 @@ public class SharePopupWindow extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View taskView = inflater.inflate(R.layout.taskview_fragment, container, false);
+        View taskView = inflater.inflate(R.layout.goal_calendar, container, false);
         TextView tv = (TextView) taskView.findViewById(R.id.textView);
         tv.setText("TEST MESSAGE Share");
         tv.setBackgroundColor(Color.MAGENTA);

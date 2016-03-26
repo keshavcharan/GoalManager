@@ -8,13 +8,13 @@ import android.view.MotionEvent;
 /**
  * Created by Kesh on 3/13/2016.
  */
-public class BottomViewPager extends ViewPager{
+public class BottomTabsViewPager extends ViewPager{
 
-    public BottomViewPager(Context context) {
+    public BottomTabsViewPager(Context context) {
         super(context);
     }
 
-    public BottomViewPager(Context context, AttributeSet attrs) {
+    public BottomTabsViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

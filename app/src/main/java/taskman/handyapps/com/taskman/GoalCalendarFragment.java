@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 /**
  * Created by Keshav on 12/12/2015.
@@ -17,9 +16,9 @@ public class GoalCalendarFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View taskView = inflater.inflate(R.layout.taskview_fragment, container, false);
-        String[] items = new String[]{"GOALS"};
+        View taskView = inflater.inflate(R.layout.goal_calendar, container, false);
 
+        String[] items = new String[]{"GOALS"};
         Spinner goalDD = (Spinner) taskView.findViewById(R.id.goaldd);
         ArrayAdapter<String> goalAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         goalDD.setAdapter(goalAdapter);

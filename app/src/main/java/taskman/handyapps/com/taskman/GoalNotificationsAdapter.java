@@ -8,22 +8,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
-import taskman.handyapps.com.model.Goal;
 import taskman.handyapps.com.model.NotificationType;
 
 /**
  * Created by Kesh on 3/21/2016.
  */
-public class NotificationsAdapter extends BaseAdapter {
+public class GoalNotificationsAdapter extends BaseAdapter {
 
     private List<NotificationType> notificationList;
     private static LayoutInflater inflater = null;
     private TextView notificationTV;
 
-    public NotificationsAdapter(List<NotificationType> notificationList, Activity activity){
+    public GoalNotificationsAdapter(List<NotificationType> notificationList, Activity activity){
         this.notificationList = notificationList;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -47,7 +45,7 @@ public class NotificationsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         if(convertView == null){
-            v = inflater.inflate(R.layout.taskdetails_layout, null);
+            v = inflater.inflate(R.layout.goal_details_row, null);
             notificationTV = (TextView) v.findViewById(R.id.notification_row);
             v.setTag(notificationTV);
         }

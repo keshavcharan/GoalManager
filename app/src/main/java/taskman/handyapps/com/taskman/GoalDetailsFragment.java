@@ -34,7 +34,7 @@ public class GoalDetailsFragment extends Fragment {
     {
         dbHelper = DatabaseManager.getDatabaseHelper(getActivity());
         goalDao = (Dao<Goal,Integer>)dbHelper.getDaoClass(Goal.class);
-        View taskDetails = inflater.inflate(R.layout.taskdetails_fragment, container, false);
+        View taskDetails = inflater.inflate(R.layout.goal_details_page, container, false);
         fileList = (ListView) taskDetails.findViewById(R.id.textDetailsListView);
         List<Goal> detailsList = new ArrayList<Goal>();
         Goal goal = new Goal();

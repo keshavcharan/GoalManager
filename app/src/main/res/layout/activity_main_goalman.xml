@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <taskman.handyapps.com.taskman.BottomViewPager
+    <taskman.handyapps.com.taskman.BottomTabsViewPager
         android:id="@+id/bottom_tabs_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

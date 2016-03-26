@@ -4,18 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.text.InputFilter;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 /**
  * Created by Kesh on 3/13/2016.
@@ -32,6 +29,9 @@ public class CreateGoalFragment extends DialogFragment {
         if(bundle == null)
             getDialog().dismiss();
 
+        getDialog().setCanceledOnTouchOutside(false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         if(bundle.getInt("AddFragmentPageNumber") == 0 || bundle.getInt("AddFragmentPageNumber") == 1) {
             View taskView = inflater.inflate(R.layout.create_goal_page1, container, false);
             getDialog().setCanceledOnTouchOutside(false);
@@ -43,7 +43,7 @@ public class CreateGoalFragment extends DialogFragment {
                 public void onClick(View v) {
                     getDialog().dismiss();
                     FragmentManager fm = getFragmentManager();
-                    BottomViewPager vp=(BottomViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
+                    BottomTabsViewPager vp=(BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
                     vp.setCurrentItem(0);
                 }
             });
@@ -63,11 +63,8 @@ public class CreateGoalFragment extends DialogFragment {
             });
 
             return taskView;
-        } else {
+        } else if(bundle.getInt("AddFragmentPageNumber") == 2) {
             View taskView = inflater.inflate(R.layout.create_goal_page2, container, false);
-            getDialog().setCanceledOnTouchOutside(false);
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
             final View oldView = inflater.inflate((R.layout.create_goal_page1), container, false);
             oldView.post(new Runnable() {
                 @Override
@@ -80,6 +77,35 @@ public class CreateGoalFragment extends DialogFragment {
                 }
             });
 
+            String[] years = new String[]{"Y", "2010", "2011"};
+            Spinner yearDD = (Spinner) taskView.findViewById(R.id.yeardd);
+            ArrayAdapter<String> yrAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, years);
+            yearDD.setAdapter(yrAdapter);
+
+            String[] months = new String[]{"M", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "SEPT", "OCT", "NOV", "DEC"};
+            Spinner monthDD = (Spinner) taskView.findViewById(R.id.monthdd);
+            ArrayAdapter<String> mnAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, months);
+            monthDD.setAdapter(mnAdapter);
+
+            String[] dates = new String[]{"D","1","2","3"};
+            Spinner dateDD = (Spinner) taskView.findViewById(R.id.datedd);
+            ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, dates);
+            dateDD.setAdapter(dateAdapter);
+
+            final Button page2nextbutton = (Button) taskView.findViewById(R.id.pagetwonext);
+            page2nextbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getDialog().dismiss();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("AddFragmentPageNumber", 3);
+                    CreateGoalFragment createGoalFragment = new CreateGoalFragment();
+                    createGoalFragment.setArguments(bundle);
+                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                    createGoalFragment.show(getFragmentManager(), "addFragmentDialogPage3");
+                }
+            });
+
             final Button pagetwocancelbutton = (Button) taskView.findViewById(R.id.pagetwocancelbutton);
             pagetwocancelbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,15 +113,48 @@ public class CreateGoalFragment extends DialogFragment {
                     getDialog().dismiss();
 
                     FragmentManager fm = getFragmentManager();
-                    BottomViewPager vp=(BottomViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
+                    BottomTabsViewPager vp=(BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
                     vp.setCurrentItem(0);
                 }
             });
 
             return taskView;
+        } else {
+            View taskView = inflater.inflate(R.layout.create_goal_page3, container, false);
+            LinearLayout subTaskLayout = (LinearLayout) taskView.findViewById(R.id.subtasklist);
+
+            final View oldView = inflater.inflate((R.layout.create_goal_page2), container, false);
+            oldView.post(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    CreateGoalFragment cgFragment = (CreateGoalFragment) fm.findFragmentByTag("addFragmentDialogPage2");
+                    if(cgFragment != null)
+                        cgFragment.dismiss();
+                }
+            });
+
+            final Button pagethreecancelbutton = (Button) taskView.findViewById(R.id.cancel_all);
+            pagethreecancelbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getDialog().dismiss();
+                    FragmentManager fm = getFragmentManager();
+                    BottomTabsViewPager vp = (BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
+                    vp.setCurrentItem(0);
+                }
+            });
+
+            //LinearLayout addLayout = addSubTask();
+
+            return taskView;
         }
     }
 
+    /*public LinearLayout addSubTask(){
+    }
+*/
     public void onResume()
     {
         super.onResume();

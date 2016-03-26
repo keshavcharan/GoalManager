@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 /**
  * Created by Keshav on 12/12/2015.
  */
-public class TasksPagerAdapter extends FragmentStatePagerAdapter
+public class GoalTabsPagerAdapter extends FragmentStatePagerAdapter
 {
     int numberOfTabs;
-    public TasksPagerAdapter(FragmentManager fm) {
+    public GoalTabsPagerAdapter(FragmentManager fm) {
         super(fm);
         this.numberOfTabs = 3;
     }
@@ -24,7 +24,7 @@ public class TasksPagerAdapter extends FragmentStatePagerAdapter
             case 1:
                 return new GoalDetailsFragment();
             case 2:
-                return new NotificationFragment();
+                return new GoalNotificationFragment();
             default:
                 return new GoalDetailsFragment();
         }

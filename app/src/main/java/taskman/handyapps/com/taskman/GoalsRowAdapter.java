@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +65,7 @@ public class GoalsRowAdapter extends BaseAdapter implements View.OnClickListener
         View v = convertView;
         FileViewHolder holder ;
         if(convertView == null){
-            v = inflater.inflate(R.layout.taskdetails_layout, null);
+            v = inflater.inflate(R.layout.goal_details_row, null);
             holder = new FileViewHolder();
             holder.taskStatus = (TextView)v.findViewById(R.id.task_stat);
             holder.taskTitle = (TextView)v.findViewById(R.id.task_header);

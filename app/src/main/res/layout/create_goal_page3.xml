@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/create_popup_scrollview_3">
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
+            <CalendarView
+                android:id="@+id/subtask_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="ADD SUB TASKS"/>
+            <LinearLayout
+                android:id="@+id/subtasklist"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="TEST ADD"/>
+            </LinearLayout>
+            <Button android:id="@+id/save_all"
+                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:text="SAVE"/>
+            <Button android:id="@+id/cancel_all"
+                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:text="CANCEL"/>
+        </LinearLayout>
+</ScrollView>

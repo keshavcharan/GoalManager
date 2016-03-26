@@ -1,20 +1,11 @@
 package taskman.handyapps.com.taskman;
 
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TabHost;
-import android.widget.TableLayout;
 
-public class TaskManagerActivity extends FragmentActivity
+public class MainGoalManActivity extends FragmentActivity
 {
     BottomTabsPagerAdapter bottomTabsPagerAdapter;
     @Override
@@ -22,16 +13,16 @@ public class TaskManagerActivity extends FragmentActivity
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_task_manager);
+        setContentView(R.layout.activity_main_goalman);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
 
-        final BottomViewPager bottomViewPager = (BottomViewPager) findViewById(R.id.bottom_tabs_pager);
+        final BottomTabsViewPager bottomTabsViewPager = (BottomTabsViewPager) findViewById(R.id.bottom_tabs_pager);
         bottomTabsPagerAdapter = new BottomTabsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
-        bottomViewPager.setCurrentItem(0);
-        bottomViewPager.setOffscreenPageLimit(2);
-        bottomViewPager.setAdapter(bottomTabsPagerAdapter);
+        bottomTabsViewPager.setCurrentItem(0);
+        bottomTabsViewPager.setOffscreenPageLimit(2);
+        bottomTabsViewPager.setAdapter(bottomTabsPagerAdapter);
 
-        tabLayout.setupWithViewPager(bottomViewPager);
+        tabLayout.setupWithViewPager(bottomTabsViewPager);
         tabLayout.addTab(tabLayout.newTab().setText("+"));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -45,7 +36,7 @@ public class TaskManagerActivity extends FragmentActivity
                     createGoal.setStyle(DialogFragment.STYLE_NORMAL, 0);
                     createGoal.show(getSupportFragmentManager(), "addFragmentDialogPage1");
                 } else {
-                    bottomViewPager.setCurrentItem(tab.getPosition());
+                    bottomTabsViewPager.setCurrentItem(tab.getPosition());
                 }
             }
 

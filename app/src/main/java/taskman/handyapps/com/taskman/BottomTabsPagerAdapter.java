@@ -1,7 +1,6 @@
 package taskman.handyapps.com.taskman;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -16,7 +15,7 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
     int numberOfTabs;
     Context context;
 
-    GoalManagerFragment goalManagerFragment;
+    GoalTabsViewPager goalTabsViewPager;
     TutorialFragment tutorialFragment;
 
     public BottomTabsPagerAdapter(FragmentManager fm, Context context) {
@@ -24,7 +23,7 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
         this.context = context;
         this.numberOfTabs = 2;
 
-        goalManagerFragment = new GoalManagerFragment();
+        goalTabsViewPager = new GoalTabsViewPager();
         tutorialFragment = new TutorialFragment();
     }
 
@@ -33,11 +32,11 @@ public class BottomTabsPagerAdapter extends FragmentStatePagerAdapter{
         switch(position)
         {
             case 0:
-                return goalManagerFragment;
+                return goalTabsViewPager;
             case 1:
                 return tutorialFragment;
             default:
-                return new GoalManagerFragment();
+                return new GoalTabsViewPager();
         }
     }
 
