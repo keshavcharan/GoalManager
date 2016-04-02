@@ -11,15 +11,20 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import java.util.Calendar;
 
 /**
  * Created by Kesh on 3/13/2016.
  */
-public class CreateGoalFragment extends DialogFragment {
+public class CreateGoalFragmentPage1 extends DialogFragment {
 
-    public CreateGoalFragment() {
+    public CreateGoalFragmentPage1() {
     }
 
     @Override
@@ -49,60 +54,69 @@ public class CreateGoalFragment extends DialogFragment {
             });
 
             final Button next_button = (Button) taskView.findViewById(R.id.nextbutton);
+            final EditText titleET = (EditText) taskView.findViewById(R.id.titletext);
+            final EditText descriptionET = (EditText) taskView.findViewById(R.id.notestext);
+
 
             next_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
+                    bundle.putString("title", titleET.getText().toString());
+                    bundle.putString("description", descriptionET.getText().toString());
                     bundle.putInt("AddFragmentPageNumber", 2);
-                    CreateGoalFragment createGoalFragment = new CreateGoalFragment();
-                    createGoalFragment.setArguments(bundle);
+                    CreateGoalFragmentPage1 createGoalFragmentPage1 = new CreateGoalFragmentPage1();
+                    createGoalFragmentPage1.setArguments(bundle);
                     FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                    createGoalFragment.show(getFragmentManager(),"addFragmentDialogPage2");
+                    createGoalFragmentPage1.show(getFragmentManager(),"addFragmentDialogPage2");
                 }
             });
 
             return taskView;
         } else if(bundle.getInt("AddFragmentPageNumber") == 2) {
-            View taskView = inflater.inflate(R.layout.create_goal_page2, container, false);
+            final View taskView = inflater.inflate(R.layout.create_goal_page2, container, false);
             final View oldView = inflater.inflate((R.layout.create_goal_page1), container, false);
             oldView.post(new Runnable() {
                 @Override
                 public void run() {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    CreateGoalFragment cgFragment = (CreateGoalFragment) fm.findFragmentByTag("addFragmentDialogPage1");
+                    CreateGoalFragmentPage1 cgFragment = (CreateGoalFragmentPage1) fm.findFragmentByTag("addFragmentDialogPage1");
                     if(cgFragment != null)
                         cgFragment.dismiss();
                 }
             });
 
             String[] years = new String[]{"Y", "2010", "2011"};
-            Spinner yearDD = (Spinner) taskView.findViewById(R.id.yeardd);
+            final Spinner yearDD = (Spinner) taskView.findViewById(R.id.yeardd);
             ArrayAdapter<String> yrAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, years);
             yearDD.setAdapter(yrAdapter);
 
-            String[] months = new String[]{"M", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "SEPT", "OCT", "NOV", "DEC"};
-            Spinner monthDD = (Spinner) taskView.findViewById(R.id.monthdd);
+            String[] months = MonthEnum.initializeDropDownArray();
+            final Spinner monthDD = (Spinner) taskView.findViewById(R.id.monthdd);
             ArrayAdapter<String> mnAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, months);
             monthDD.setAdapter(mnAdapter);
 
             String[] dates = new String[]{"D","1","2","3"};
-            Spinner dateDD = (Spinner) taskView.findViewById(R.id.datedd);
+            final Spinner dateDD = (Spinner) taskView.findViewById(R.id.datedd);
             ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, dates);
             dateDD.setAdapter(dateAdapter);
 
+            final RadioGroup priority = (RadioGroup) taskView.findViewById(R.id.radioPriority);
             final Button page2nextbutton = (Button) taskView.findViewById(R.id.pagetwonext);
             page2nextbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getDialog().dismiss();
-                    Bundle bundle = new Bundle();
                     bundle.putInt("AddFragmentPageNumber", 3);
-                    CreateGoalFragment createGoalFragment = new CreateGoalFragment();
-                    createGoalFragment.setArguments(bundle);
+
+                    long deadlinetimestamp = setCalendarTimestamp(yearDD.getSelectedItem().toString(), monthDD.getSelectedItem().toString(), dateDD.getSelectedItem().toString());
+                    bundle.putLong("timestamp",deadlinetimestamp);
+                    ((RadioButton)taskView.findViewById(priority.getCheckedRadioButtonId())).getText();
+
+                    CreateGoalFragmentPage1 createGoalFragmentPage1 = new CreateGoalFragmentPage1();
+                    createGoalFragmentPage1.setArguments(bundle);
                     FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                    createGoalFragment.show(getFragmentManager(), "addFragmentDialogPage3");
+                    createGoalFragmentPage1.show(getFragmentManager(), "addFragmentDialogPage3");
                 }
             });
 
@@ -129,7 +143,7 @@ public class CreateGoalFragment extends DialogFragment {
                 public void run() {
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    CreateGoalFragment cgFragment = (CreateGoalFragment) fm.findFragmentByTag("addFragmentDialogPage2");
+                    CreateGoalFragmentPage1 cgFragment = (CreateGoalFragmentPage1) fm.findFragmentByTag("addFragmentDialogPage2");
                     if(cgFragment != null)
                         cgFragment.dismiss();
                 }
@@ -152,6 +166,17 @@ public class CreateGoalFragment extends DialogFragment {
         }
     }
 
+    private long setCalendarTimestamp(String y, String m, String d){
+        if(y == null || m == null || d == null)
+            return 0;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, Integer.parseInt(y));
+        calendar.set(Calendar.MONTH, MonthEnum.valueOf(m).getMonthNumber());
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(d));
+        return calendar.getTimeInMillis()/1000;
+
+    }
     /*public LinearLayout addSubTask(){
     }
 */
