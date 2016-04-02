@@ -21,11 +21,15 @@ public class Goal implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
     @Column
     private String about;
+    @Column
+    private String description;
+    @Column
+    private int priority;
     @Column(name="end_date", nullable = false)
-    private Integer endDate;
+    private int endDate;
     @ManyToOne
     @JoinColumn(name = "notification_type" )
     private NotificationType notificationType;
@@ -33,11 +37,11 @@ public class Goal implements Serializable
     public Goal(){
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +53,19 @@ public class Goal implements Serializable
         this.about = about;
     }
 
-    public Integer getEndDate() {
+    public int getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Integer endDate) {
+    public void setEndDate(int endDate) {
         this.endDate = endDate;
     }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public String getDescription(){ return description; }
+
+    public void setPriority(int priority) { this.priority = priority; }
+
+    public int getPriority() { return priority; }
 }

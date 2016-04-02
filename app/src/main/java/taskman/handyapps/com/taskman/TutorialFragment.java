@@ -22,7 +22,7 @@ public class TutorialFragment extends Fragment {
             addPopup = bundle.getBoolean("addPopup");
 
         if(addPopup) {
-            CreateGoalFragment createGoal = new CreateGoalFragment();
+            CreateGoalFragmentPage1 createGoal = new CreateGoalFragmentPage1();
             createGoal.show(getFragmentManager(), "fragmentDialog");
         }
 

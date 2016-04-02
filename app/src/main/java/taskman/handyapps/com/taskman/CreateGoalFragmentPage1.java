@@ -30,153 +30,44 @@ public class CreateGoalFragmentPage1 extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        final Bundle bundle = getArguments();
-        if(bundle == null)
-            getDialog().dismiss();
-
         getDialog().setCanceledOnTouchOutside(false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        if(bundle.getInt("AddFragmentPageNumber") == 0 || bundle.getInt("AddFragmentPageNumber") == 1) {
-            View taskView = inflater.inflate(R.layout.create_goal_page1, container, false);
-            getDialog().setCanceledOnTouchOutside(false);
-            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View taskView = inflater.inflate(R.layout.create_goal_page1, container, false);
+        getDialog().setCanceledOnTouchOutside(false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-            final Button cancel_button = (Button) taskView.findViewById(R.id.cancelbutton);
-            cancel_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getDialog().dismiss();
-                    FragmentManager fm = getFragmentManager();
-                    BottomTabsViewPager vp=(BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
-                    vp.setCurrentItem(0);
-                }
-            });
+        final Button cancel_button = (Button) taskView.findViewById(R.id.cancelbutton);
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+                FragmentManager fm = getFragmentManager();
+                BottomTabsViewPager vp = (BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
+                vp.setCurrentItem(0);
+            }
+        });
 
-            final Button next_button = (Button) taskView.findViewById(R.id.nextbutton);
-            final EditText titleET = (EditText) taskView.findViewById(R.id.titletext);
-            final EditText descriptionET = (EditText) taskView.findViewById(R.id.notestext);
+        final Button next_button = (Button) taskView.findViewById(R.id.nextbutton);
+        final EditText titleET = (EditText) taskView.findViewById(R.id.titletext);
+        final EditText descriptionET = (EditText) taskView.findViewById(R.id.notestext);
 
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("title", titleET.getText().toString());
+                bundle.putString("description", descriptionET.getText().toString());
+                CreateGoalFragmentPage2 createGoalFragmentPage2 = new CreateGoalFragmentPage2();
+                createGoalFragmentPage2.setArguments(bundle);
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                createGoalFragmentPage2.show(getFragmentManager(), "addFragmentDialogPage2");
+            }
+        });
 
-            next_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    bundle.putString("title", titleET.getText().toString());
-                    bundle.putString("description", descriptionET.getText().toString());
-                    bundle.putInt("AddFragmentPageNumber", 2);
-                    CreateGoalFragmentPage1 createGoalFragmentPage1 = new CreateGoalFragmentPage1();
-                    createGoalFragmentPage1.setArguments(bundle);
-                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                    createGoalFragmentPage1.show(getFragmentManager(),"addFragmentDialogPage2");
-                }
-            });
-
-            return taskView;
-        } else if(bundle.getInt("AddFragmentPageNumber") == 2) {
-            final View taskView = inflater.inflate(R.layout.create_goal_page2, container, false);
-            final View oldView = inflater.inflate((R.layout.create_goal_page1), container, false);
-            oldView.post(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    CreateGoalFragmentPage1 cgFragment = (CreateGoalFragmentPage1) fm.findFragmentByTag("addFragmentDialogPage1");
-                    if(cgFragment != null)
-                        cgFragment.dismiss();
-                }
-            });
-
-            String[] years = new String[]{"Y", "2010", "2011"};
-            final Spinner yearDD = (Spinner) taskView.findViewById(R.id.yeardd);
-            ArrayAdapter<String> yrAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, years);
-            yearDD.setAdapter(yrAdapter);
-
-            String[] months = MonthEnum.initializeDropDownArray();
-            final Spinner monthDD = (Spinner) taskView.findViewById(R.id.monthdd);
-            ArrayAdapter<String> mnAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, months);
-            monthDD.setAdapter(mnAdapter);
-
-            String[] dates = new String[]{"D","1","2","3"};
-            final Spinner dateDD = (Spinner) taskView.findViewById(R.id.datedd);
-            ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, dates);
-            dateDD.setAdapter(dateAdapter);
-
-            final RadioGroup priority = (RadioGroup) taskView.findViewById(R.id.radioPriority);
-            final Button page2nextbutton = (Button) taskView.findViewById(R.id.pagetwonext);
-            page2nextbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getDialog().dismiss();
-                    bundle.putInt("AddFragmentPageNumber", 3);
-
-                    long deadlinetimestamp = setCalendarTimestamp(yearDD.getSelectedItem().toString(), monthDD.getSelectedItem().toString(), dateDD.getSelectedItem().toString());
-                    bundle.putLong("timestamp",deadlinetimestamp);
-                    ((RadioButton)taskView.findViewById(priority.getCheckedRadioButtonId())).getText();
-
-                    CreateGoalFragmentPage1 createGoalFragmentPage1 = new CreateGoalFragmentPage1();
-                    createGoalFragmentPage1.setArguments(bundle);
-                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                    createGoalFragmentPage1.show(getFragmentManager(), "addFragmentDialogPage3");
-                }
-            });
-
-            final Button pagetwocancelbutton = (Button) taskView.findViewById(R.id.pagetwocancelbutton);
-            pagetwocancelbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getDialog().dismiss();
-
-                    FragmentManager fm = getFragmentManager();
-                    BottomTabsViewPager vp=(BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
-                    vp.setCurrentItem(0);
-                }
-            });
-
-            return taskView;
-        } else {
-            View taskView = inflater.inflate(R.layout.create_goal_page3, container, false);
-            LinearLayout subTaskLayout = (LinearLayout) taskView.findViewById(R.id.subtasklist);
-
-            final View oldView = inflater.inflate((R.layout.create_goal_page2), container, false);
-            oldView.post(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    CreateGoalFragmentPage1 cgFragment = (CreateGoalFragmentPage1) fm.findFragmentByTag("addFragmentDialogPage2");
-                    if(cgFragment != null)
-                        cgFragment.dismiss();
-                }
-            });
-
-            final Button pagethreecancelbutton = (Button) taskView.findViewById(R.id.cancel_all);
-            pagethreecancelbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getDialog().dismiss();
-                    FragmentManager fm = getFragmentManager();
-                    BottomTabsViewPager vp = (BottomTabsViewPager) getActivity().findViewById(R.id.bottom_tabs_pager);
-                    vp.setCurrentItem(0);
-                }
-            });
-
-            //LinearLayout addLayout = addSubTask();
-
-            return taskView;
-        }
+        return taskView;
     }
 
-    private long setCalendarTimestamp(String y, String m, String d){
-        if(y == null || m == null || d == null)
-            return 0;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, Integer.parseInt(y));
-        calendar.set(Calendar.MONTH, MonthEnum.valueOf(m).getMonthNumber());
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(d));
-        return calendar.getTimeInMillis()/1000;
-
-    }
     /*public LinearLayout addSubTask(){
     }
 */

@@ -14,13 +14,13 @@ public enum NotificationTypesEnum {
     DEADLINE_MISSED("An Interim Task ? has missed deadline ? days ago. Update calendar"),
     DEADLINES_MISSED("Interim Tasks ? have missed deadlines ? days ago. Update calendar");
 
-    private static final Map<NotificationTypesEnum, String> eMap = Collections.unmodifiableMap(initializeMap());
+    //private static final Map<NotificationTypesEnum, String> eMap = Collections.unmodifiableMap(initializeMap());
     private String message;
 
     private NotificationTypesEnum(String notification) {
         this.message = notification;
     }
-
+/*
     private static Map<NotificationTypesEnum, String> initializeMap()
     {
         Map<NotificationTypesEnum, String> emap = new EnumMap<NotificationTypesEnum, String>(NotificationTypesEnum.class);
@@ -29,7 +29,7 @@ public enum NotificationTypesEnum {
             emap.put(enumv, enumv.message);
         }
         return emap;
-    }
+    }*/
 
     public String getMessage(){
         return message;

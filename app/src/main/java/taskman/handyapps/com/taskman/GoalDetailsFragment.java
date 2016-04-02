@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.j256.ormlite.dao.Dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +37,16 @@ public class GoalDetailsFragment extends Fragment {
         goalDao = (Dao<Goal,Integer>)dbHelper.getDaoClass(Goal.class);
         View taskDetails = inflater.inflate(R.layout.goal_details_page, container, false);
         fileList = (ListView) taskDetails.findViewById(R.id.textDetailsListView);
-        List<Goal> detailsList = new ArrayList<Goal>();
-        Goal goal = new Goal();
+        List<Goal> detailsList = new ArrayList<>();
+        try {
+            detailsList = goalDao.queryBuilder().orderBy("priority", false).query();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+/*        Goal goal = new Goal();
         goal.setAbout("Example Goal");
         goal.setEndDate((int)System.currentTimeMillis());
-        detailsList.add(goal);
+        detailsList.add(goal);*/
 //        setListData();
         GoalsRowAdapter rowAdapter = new GoalsRowAdapter(detailsList, this.getActivity(), getResources());
 /*        TextView tv = (TextView) taskDetails.findViewById(R.id.textDetailsView);
